@@ -11,6 +11,7 @@ ARG SSE42=ON
 ARG CUDA=OFF
 ARG OPENCL=OFF
 ARG OPENCL_SVM=OFF
+ARG OPENGL=ON
 
 RUN apt-get update && \
         apt-get install -y \
@@ -48,7 +49,7 @@ RUN wget https://github.com/opencv/opencv/archive/3.2.0.zip \
   -DENABLE_SSE41=$SSE41 \
   -DENABLE_SSE42=$SSE42 \
   -DENABLE_SSSE3=ON \
-  -DWITH_OPENGL=ON \
+  -DWITH_OPENGL=$OPENGL \
   -DWITH_GTK=OFF \
   -DWITH_OPENCL=$OPENCL \
   -DWITH_OPENCL_SVM=$OPENCL_SVM \
