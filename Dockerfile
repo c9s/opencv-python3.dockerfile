@@ -73,6 +73,5 @@ RUN wget https://github.com/opencv/opencv/archive/3.2.0.zip \
   -DINSTALL_PYTHON_EXAMPLES=ON \
   -DINSTALL_C_EXAMPLES=OFF \
     && make install \
-    && make test \
     && rm /3.2.0.zip \
     && rm -r /opencv-3.2.0
