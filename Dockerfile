@@ -36,13 +36,17 @@ RUN apt-get update -y && apt-get install -y \
         libavformat-dev \
         libpq-dev \
         libboost-all-dev \
+        python-numpy \
         && apt-get clean
 
 WORKDIR /
 
 RUN wget https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
-    && tar xvf $VERSION.tar.gz -C / \
-    && mkdir /opencv-$VERSION/cmake_binary \
+    && tar xvf $VERSION.tar.gz -C /
+
+RUN pip install numpy
+
+RUN mkdir /opencv-$VERSION/cmake_binary \
     && cd /opencv-$VERSION/cmake_binary \
     && cmake \
     -DBUILD_TIFF=ON \
@@ -68,14 +72,14 @@ RUN wget https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
     -DWITH_FFMPEG=$FFMPEG \
     -DENABLE_PRECOMPILED_HEADERS=ON \
     -DBUILD_PERF_TESTS=OFF \
-    -DBUILD_TESTS=ON \
+    -DBUILD_TESTS=OFF \
     -DCMAKE_BUILD_TYPE=RELEASE \
-    -DCMAKE_INSTALL_PREFIX=$(python3.6 -c "import sys; print(sys.prefix)") \
-    -DPYTHON3_EXECUTABLE=$(which python3.6) \
+    -DCMAKE_INSTALL_PREFIX=/usr/local \
+    -DPYTHON3_EXECUTABLE=/usr/local/bin/python \
     -DPYTHON3_LIBRARIES=/usr/local/lib/libpython3.so \
-    -DPYTHON3_INCLUDE_DIR=$(python3.6 -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
-    -DPYTHON3_PACKAGES_PATH=$(python3.6 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
-    -DINSTALL_PYTHON_EXAMPLES=ON \
+    -DPYTHON3_INCLUDE_DIR=$(/usr/local/bin/python -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
+    -DPYTHON3_PACKAGES_PATH=$(/usr/local/bin/python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
+    -DINSTALL_PYTHON_EXAMPLES=OFF \
     -DINSTALL_C_EXAMPLES=OFF \
         && make install \
         && rm -rf /$VERSION.tar.gz /opencv-$VERSION
