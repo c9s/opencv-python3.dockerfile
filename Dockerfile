@@ -36,6 +36,7 @@ RUN apt-get update -y && apt-get install -y \
         libavformat-dev \
         libpq-dev \
         libboost-all-dev \
+        libgphoto2-dev libgphoto2-6 \
         python-numpy \
         && apt-get clean
 
