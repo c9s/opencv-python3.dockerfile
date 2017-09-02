@@ -40,6 +40,7 @@ RUN apt-get update -y && apt-get install -y \
         libgstreamer0.10-dev libgstreamer0.10-0 \
         libopenblas-dev libopenblas-base \
         libatlas3-base libatlas-dev \
+        liblapack-dev liblapack3 \
         python-numpy \
         && apt-get clean
 
