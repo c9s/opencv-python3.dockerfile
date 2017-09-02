@@ -72,7 +72,7 @@ RUN wget https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DCMAKE_INSTALL_PREFIX=$(python3.6 -c "import sys; print(sys.prefix)") \
     -DPYTHON3_EXECUTABLE=$(which python3.6) \
-    -DPYTHON3_LIBRARIES=/usr/local/lib/libpython3.so
+    -DPYTHON3_LIBRARIES=/usr/local/lib/libpython3.so \
     -DPYTHON3_INCLUDE_DIR=$(python3.6 -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
     -DPYTHON3_PACKAGES_PATH=$(python3.6 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
     -DINSTALL_PYTHON_EXAMPLES=ON \
