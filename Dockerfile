@@ -37,6 +37,9 @@ RUN apt-get update -y && apt-get install -y \
         libpq-dev \
         libboost-all-dev \
         libgphoto2-dev libgphoto2-6 \
+        libgstreamer0.10-dev libgstreamer0.10-0 \
+        libopenblas-dev libopenblas-base \
+        libatlas3-base libatlas-dev \
         python-numpy \
         && apt-get clean
 
