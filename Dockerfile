@@ -17,7 +17,7 @@ ARG FFMPEG=ON
 
 ARG VERSION=3.2.0
 
-RUN apt-get update -y && apt-get install -y \
+RUN apt-get update -q -y && apt-get install -y \
         build-essential \
         cmake \
         git \
@@ -47,8 +47,8 @@ RUN apt-get update -y && apt-get install -y \
 
 WORKDIR /
 
-RUN wget https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
-    && tar xvf $VERSION.tar.gz -C /
+RUN wget -qc https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
+    && tar xf $VERSION.tar.gz -C /
 
 RUN pip install numpy
 RUN pip install scipy
