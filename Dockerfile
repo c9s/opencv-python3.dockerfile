@@ -51,6 +51,7 @@ RUN wget https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
     && tar xvf $VERSION.tar.gz -C /
 
 RUN pip install numpy
+RUN pip install scipy
 
 RUN mkdir /opencv-$VERSION/cmake_binary \
     && cd /opencv-$VERSION/cmake_binary \
