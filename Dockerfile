@@ -52,6 +52,7 @@ RUN wget https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
 
 RUN pip install numpy
 RUN pip install scipy
+RUN pip install tensorflow
 
 RUN mkdir /opencv-$VERSION/cmake_binary \
     && cd /opencv-$VERSION/cmake_binary \
