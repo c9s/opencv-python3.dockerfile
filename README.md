@@ -3,10 +3,14 @@ OpenCV with Python3.6 binding
 
 This repository provides different variants for opencv:
 
-    make avx
-    make avx-sse
-    make avx-sse-opencl
-    make avx-sse-opencl-cuda
+    make i5
+    make i5-opencl
+    make i5-opencl-cuda
+
+By default `:latest` is built with AVX, AVX2, SSE41, SSE42 supports, which is
+an alias to `i5` since all Intel i5 supports the instructions.
+
+    docker run -it yoanlin/opencv-python3 bash
 
 See Docker Hub for pulling the images:
 
