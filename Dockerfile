@@ -51,7 +51,6 @@ RUN apt-get update -q -y && apt-get install -y \
         cmake \
         git \
         wget \
-        unzip \
         yasm \
         pkg-config \
         libswscale-dev \
