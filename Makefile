@@ -5,8 +5,7 @@ i5:
 
 i5-opencl:
 	docker build --tag yoanlin/opencv-python3:avx-sse-opencl \
-		--build-arg OPENCL=ON . \
-		--build-arg OPENCL_SVM=ON .
+		--build-arg OPENCL=ON .
 	docker push yoanlin/opencv-python3:opencl
 
 i5-opencl-cuda:

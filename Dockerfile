@@ -4,19 +4,38 @@ MAINTAINER Yo-An Lin <yoanlin93@gmail.com>
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
+# Intel CPU Options
 ARG AVX=ON
 ARG AVX2=ON
 ARG SSE41=ON
 ARG SSE42=ON
 ARG SSSE3=ON
-ARG CUDA=OFF
-ARG OPENCL=OFF
-ARG OPENCL_SVM=OFF
-ARG OPENGL=ON
 ARG TBB=ON
+
+# Include Intel IPP support
+ARG IPP=ON
+
+# Include NVidia Cuda Runtime support
+ARG CUDA=OFF
+
+# Include NVidia Cuda Fast Fourier Transform (FFT) library support
+ARG CUFFT=OFF
+
+# Include NVidia Cuda Basic Linear Algebra Subprograms (BLAS) library support
+ARG CUBLAS=OFF
+
+# Include OpenCL Runtime support
+ARG OPENCL=OFF
+
+# Include OpenCL Shared Virtual Memory support" OFF ) experimental
+ARG OPENCL_SVM=OFF
+
+ARG OPENGL=ON
+
 ARG FFMPEG=ON
 ARG GTK=OFF
 ARG QT=OFF
+ARG NONFREE=OFF
 
 ARG PREFIX=/usr/local
 ARG VERSION=3.2.0
@@ -63,9 +82,13 @@ RUN pip install scipy
 RUN mkdir /opencv-$VERSION/cmake_binary \
     && cd /opencv-$VERSION/cmake_binary \
     && cmake \
-    -DBUILD_TIFF=ON \
+    -DCMAKE_BUILD_TYPE=RELEASE \
+    -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -DOPENCV_ENABLE_NONFREE=$NONFREE \
     -DBUILD_opencv_java=OFF \
     -DWITH_CUDA=$CUDA \
+    -DWITH_CUBLAS=$CUBLAS \
+    -DWITH_CUFFT=$CUFFT \
     -DENABLE_AVX=$AVX \
     -DENABLE_AVX2=$AVX2 \
     -DENABLE_SSE41=$SSE41 \
@@ -78,21 +101,21 @@ RUN mkdir /opencv-$VERSION/cmake_binary \
     -DWITH_TBB=$TBB \
     -DWITH_JPEG=ON \
     -DWITH_WEBP=ON \
+    -DWITH_TIFF=ON \
     -DWITH_PNG=ON \
     -DWITH_QT=$QT \
-    -DWITH_IPP=ON \
+    -DWITH_IPP=$IPP \
     -DWITH_EIGEN=ON \
     -DWITH_V4L=ON \
     -DWITH_FFMPEG=$FFMPEG \
     -DENABLE_PRECOMPILED_HEADERS=ON \
-    -DBUILD_PERF_TESTS=OFF \
-    -DBUILD_TESTS=OFF \
-    -DCMAKE_BUILD_TYPE=RELEASE \
-    -DCMAKE_INSTALL_PREFIX=$PREFIX \
     -DPYTHON3_EXECUTABLE=$PYTHON_BIN \
     -DPYTHON3_LIBRARIES=$PYTHON_LIB \
     -DPYTHON3_INCLUDE_DIR=$($PYTHON_BIN -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
     -DPYTHON3_PACKAGES_PATH=$($PYTHON_BIN -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
+    -DBUILD_PERF_TESTS=OFF \
+    -DBUILD_TESTS=OFF \
+    -DBUILD_EXAMPLES=OFF \
     -DINSTALL_PYTHON_EXAMPLES=OFF \
     -DINSTALL_C_EXAMPLES=OFF \
         && make install \
