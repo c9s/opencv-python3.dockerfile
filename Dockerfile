@@ -52,7 +52,6 @@ RUN wget https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
 
 RUN pip install numpy
 RUN pip install scipy
-RUN pip install tensorflow
 
 RUN mkdir /opencv-$VERSION/cmake_binary \
     && cd /opencv-$VERSION/cmake_binary \
@@ -91,3 +90,5 @@ RUN mkdir /opencv-$VERSION/cmake_binary \
     -DINSTALL_C_EXAMPLES=OFF \
         && make install \
         && rm -rf /$VERSION.tar.gz /opencv-$VERSION
+
+RUN pip install tensorflow
