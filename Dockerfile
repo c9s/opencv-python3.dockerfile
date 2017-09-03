@@ -8,6 +8,7 @@ ARG AVX=ON
 ARG AVX2=ON
 ARG SSE41=ON
 ARG SSE42=ON
+ARG SSSE3=ON
 ARG CUDA=OFF
 ARG OPENCL=OFF
 ARG OPENCL_SVM=OFF
@@ -15,7 +16,11 @@ ARG OPENGL=ON
 ARG TBB=ON
 ARG FFMPEG=ON
 
+ARG PREFIX=/usr/local
 ARG VERSION=3.2.0
+
+ARG PYTHON_BIN=/usr/local/bin/python
+ARG PYTHON_LIB=/usr/local/lib/libpython3.so
 
 RUN apt-get update -q -y && apt-get install -y \
         build-essential \
@@ -63,7 +68,7 @@ RUN mkdir /opencv-$VERSION/cmake_binary \
     -DENABLE_AVX2=$AVX2 \
     -DENABLE_SSE41=$SSE41 \
     -DENABLE_SSE42=$SSE42 \
-    -DENABLE_SSSE3=ON \
+    -DENABLE_SSSE3=$SSSE3 \
     -DWITH_OPENGL=$OPENGL \
     -DWITH_GTK=OFF \
     -DWITH_OPENCL=$OPENCL \
@@ -81,11 +86,11 @@ RUN mkdir /opencv-$VERSION/cmake_binary \
     -DBUILD_PERF_TESTS=OFF \
     -DBUILD_TESTS=OFF \
     -DCMAKE_BUILD_TYPE=RELEASE \
-    -DCMAKE_INSTALL_PREFIX=/usr/local \
-    -DPYTHON3_EXECUTABLE=/usr/local/bin/python \
-    -DPYTHON3_LIBRARIES=/usr/local/lib/libpython3.so \
-    -DPYTHON3_INCLUDE_DIR=$(/usr/local/bin/python -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
-    -DPYTHON3_PACKAGES_PATH=$(/usr/local/bin/python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
+    -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -DPYTHON3_EXECUTABLE=$PYTHON_BIN \
+    -DPYTHON3_LIBRARIES=$PYTHON_LIB \
+    -DPYTHON3_INCLUDE_DIR=$($PYTHON_BIN -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
+    -DPYTHON3_PACKAGES_PATH=$($PYTHON_BIN -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
     -DINSTALL_PYTHON_EXAMPLES=OFF \
     -DINSTALL_C_EXAMPLES=OFF \
         && make install \
