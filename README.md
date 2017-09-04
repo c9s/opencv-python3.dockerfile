@@ -12,6 +12,20 @@ an alias to `i5` since all Intel i5 supports the instructions.
 
     docker run -it yoanlin/opencv-python3 bash
 
-See Docker Hub for pulling the images:
 
-    https://hub.docker.com/r/yoanlin/opencv-python3/
+Finding python library files:
+
+```python
+import sysconfig
+
+# on linux
+print(sysconfig.get_config_var('LIBDIR') + '/' + sysconfig.get_config_var('PY3LIBRARY'))
+
+# on mac os with Macports
+print(sysconfig.get_config_var('srcdir') + '/' + sysconfig.get_config_var('LIBRARY'))
+```
+
+
+
+
+See Docker Hub for pulling the images: <https://hub.docker.com/r/yoanlin/opencv-python3/>
