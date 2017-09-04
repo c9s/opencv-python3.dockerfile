@@ -27,10 +27,14 @@ ARG CUBLAS=OFF
 # Include OpenCL Runtime support
 ARG OPENCL=OFF
 
+
+
 # Include OpenCL Shared Virtual Memory support" OFF ) experimental
 ARG OPENCL_SVM=OFF
 
 ARG OPENGL=ON
+
+ARG GSTREAMER=ON
 
 ARG FFMPEG=ON
 ARG GTK=OFF
@@ -65,7 +69,7 @@ RUN apt-get update -q -y && apt-get install -y \
         libpq-dev \
         libboost-all-dev \
         libgphoto2-dev libgphoto2-6 \
-        libgstreamer0.10-dev libgstreamer0.10-0 \
+        libgstreamer1.0-0 libgstreamer1.0-dev gstreamer1.0-libav gstreamer1.0-plugins-base \
         libopenblas-dev libopenblas-base \
         libatlas3-base libatlas-dev \
         liblapacke-dev liblapacke \
@@ -98,6 +102,7 @@ RUN mkdir /opencv-$VERSION/cmake_binary \
     -DENABLE_SSSE3=$SSSE3 \
     -DWITH_OPENGL=$OPENGL \
     -DWITH_GTK=$GTK \
+    -DWITH_GSTREAMER=$GSTREAMER \
     -DWITH_OPENCL=$OPENCL \
     -DWITH_OPENCL_SVM=$OPENCL_SVM \
     -DWITH_TBB=$TBB \
