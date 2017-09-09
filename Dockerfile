@@ -78,15 +78,14 @@ RUN apt-get update -q -y && apt-get install -y \
         libopenblas-dev libopenblas-base \
         libatlas-dev libatlas-base-dev \
         liblapacke-dev liblapacke \
-        python-numpy python-scipy \
         && dpkg-query -Wf '${Installed-Size}\t${Package}\n' | sort -n \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists
 
-
-# RUN pip install --no-binary :all: numpy \
-#  && pip install --no-binary :all: scipy \
-#  && rm -rf ~/.cache/pip
+RUN pip install --upgrade pip \
+ && pip install numpy \
+ && pip install scipy \
+ && rm -rf ~/.cache/pip
 
 RUN curl --silent --location --location-trusted \
         --remote-name https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
