@@ -57,7 +57,6 @@ ARG PYTHON_LIB=/usr/local/lib/libpython3.so
 RUN apt-get update -q -y && apt-get install -y \
         build-essential \
         cmake \
-        wget \
         yasm \
         pkg-config \
         libswscale-dev \
@@ -82,11 +81,12 @@ RUN apt-get update -q -y && apt-get install -y \
 
 WORKDIR /
 
-RUN pip install --no-use-wheel numpy \
- && pip install --no-use-wheel scipy \
+RUN pip install --no-binary :all: numpy \
+ && pip install --no-binary :all: scipy \
  && rm -rf ~/.cache/pip
 
-RUN wget -qc https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
+RUN curl --silent --location --location-trusted \
+        --remote-name https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
     && tar xf $VERSION.tar.gz -C / \
     && mkdir /opencv-$VERSION/cmake_binary \
     && cd /opencv-$VERSION/cmake_binary \
