@@ -77,7 +77,7 @@ RUN apt-get update -q -y && apt-get install -y \
         libblas-dev \
         liblapacke liblapacke-dev \
         libopenblas-dev libopenblas-base \
-        libatlas-dev libatlas-base-dev
+        libatlas-dev libatlas-base-dev \
         liblapacke-dev liblapacke \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists
