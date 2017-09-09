@@ -122,8 +122,11 @@ RUN curl --silent --location --location-trusted \
         -DWITH_INTELPERC=$INTELPERC \
         -DWITH_FFMPEG=$FFMPEG \
         -DENABLE_PRECOMPILED_HEADERS=ON \
+        -DBUILD_opencv_python2=NO \
+        -DBUILD_opencv_python3=ON \
         -DPYTHON3_EXECUTABLE=$PYTHON_BIN \
         -DPYTHON3_LIBRARIES=$PYTHON_LIB \
+        -DPYTHON_LIBRARIES=$PYTHON_LIB \
         -DPYTHON3_INCLUDE_DIR=$($PYTHON_BIN -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
         -DPYTHON3_PACKAGES_PATH=$($PYTHON_BIN -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
         -DBUILD_DOCS=NO \
