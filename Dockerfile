@@ -45,7 +45,7 @@ ARG NONFREE=OFF
 ARG INTELPERC=OFF
 
 ARG PREFIX=/usr/local
-ARG VERSION=3.2.0
+ARG VERSION=3.3.0
 
 ARG PYTHON_BIN=/usr/local/bin/python
 ARG PYTHON_LIB=/usr/local/lib/libpython3.so
