@@ -57,7 +57,6 @@ ARG PYTHON_LIB=/usr/local/lib/libpython3.so
 RUN apt-get update -q -y && apt-get install -y \
         build-essential \
         cmake \
-        git \
         wget \
         yasm \
         pkg-config \
