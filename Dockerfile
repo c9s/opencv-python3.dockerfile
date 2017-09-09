@@ -50,6 +50,10 @@ ARG VERSION=3.2.0
 ARG PYTHON_BIN=/usr/local/bin/python
 ARG PYTHON_LIB=/usr/local/lib/libpython3.so
 
+# LAPACKE is the C wrapper for the standard F90 LAPACK library. Honestly, its
+# easier (and more efficient) to do things directly with LAPACK just as long as
+# you store things column-major. LAPACKE ends up calling (in some fashion) the
+# LAPACK routines anyways.
 RUN apt-get update -q -y && apt-get install -y \
         build-essential \
         cmake \
