@@ -79,8 +79,10 @@ RUN apt-get update -q -y && apt-get install -y \
         libatlas-dev libatlas-base-dev \
         liblapacke-dev liblapacke \
         python-numpy python-scipy \
+        && dpkg-query -Wf '${Installed-Size}\t${Package}\n' | sort -n \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists
+
 
 # RUN pip install --no-binary :all: numpy \
 #  && pip install --no-binary :all: scipy \
