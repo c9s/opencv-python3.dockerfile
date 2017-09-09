@@ -72,7 +72,6 @@ RUN apt-get update -q -y && apt-get install -y \
         libavformat-dev \
         libpq-dev \
         libboost-all-dev \
-        libgphoto2-dev libgphoto2-6 \
         libgstreamer1.0-0 libgstreamer1.0-dev gstreamer1.0-libav gstreamer1.0-plugins-base \
         libblas-dev \
         liblapacke liblapacke-dev \
