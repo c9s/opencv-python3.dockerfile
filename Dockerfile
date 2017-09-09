@@ -70,62 +70,62 @@ RUN apt-get update -q -y && apt-get install -y \
         libboost-all-dev \
         libgphoto2-dev libgphoto2-6 \
         libgstreamer1.0-0 libgstreamer1.0-dev gstreamer1.0-libav gstreamer1.0-plugins-base \
+        libblas-dev \
+        liblapacke liblapacke-dev \
         libopenblas-dev libopenblas-base \
-        libatlas3-base libatlas-dev \
+        libatlas-dev libatlas-base-dev
         liblapacke-dev liblapacke \
-        liblapack-dev liblapack3 \
-        python-numpy \
         && apt-get clean
 
 WORKDIR /
 
+RUN pip install --no-use-wheel numpy \
+ && pip install --no-use-wheel scipy \
+ && rm -rf ~/.cache/pip
+
 RUN wget -qc https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
-    && tar xf $VERSION.tar.gz -C /
-
-RUN pip install --no-use-wheel numpy
-RUN pip install --no-use-wheel scipy
-
-RUN mkdir /opencv-$VERSION/cmake_binary \
+    && tar xf $VERSION.tar.gz -C / \
+    && mkdir /opencv-$VERSION/cmake_binary \
     && cd /opencv-$VERSION/cmake_binary \
     && cmake \
-    -DCMAKE_BUILD_TYPE=RELEASE \
-    -DCMAKE_INSTALL_PREFIX=$PREFIX \
-    -DOPENCV_ENABLE_NONFREE=$NONFREE \
-    -DBUILD_opencv_java=OFF \
-    -DWITH_CUDA=$CUDA \
-    -DWITH_CUBLAS=$CUBLAS \
-    -DWITH_CUFFT=$CUFFT \
-    -DENABLE_AVX=$AVX \
-    -DENABLE_AVX2=$AVX2 \
-    -DENABLE_SSE41=$SSE41 \
-    -DENABLE_SSE42=$SSE42 \
-    -DENABLE_SSSE3=$SSSE3 \
-    -DWITH_OPENGL=$OPENGL \
-    -DWITH_GTK=$GTK \
-    -DWITH_GSTREAMER=$GSTREAMER \
-    -DWITH_OPENCL=$OPENCL \
-    -DWITH_OPENCL_SVM=$OPENCL_SVM \
-    -DWITH_TBB=$TBB \
-    -DWITH_JPEG=ON \
-    -DWITH_WEBP=ON \
-    -DWITH_TIFF=ON \
-    -DWITH_PNG=ON \
-    -DWITH_QT=$QT \
-    -DWITH_IPP=$IPP \
-    -DWITH_EIGEN=ON \
-    -DWITH_V4L=ON \
-    -DWITH_INTELPERC=$INTELPERC \
-    -DWITH_FFMPEG=$FFMPEG \
-    -DENABLE_PRECOMPILED_HEADERS=ON \
-    -DPYTHON3_EXECUTABLE=$PYTHON_BIN \
-    -DPYTHON3_LIBRARIES=$PYTHON_LIB \
-    -DPYTHON3_INCLUDE_DIR=$($PYTHON_BIN -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
-    -DPYTHON3_PACKAGES_PATH=$($PYTHON_BIN -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
-    -DBUILD_PERF_TESTS=OFF \
-    -DBUILD_TESTS=OFF \
-    -DBUILD_EXAMPLES=OFF \
-    -DINSTALL_PYTHON_EXAMPLES=OFF \
-    -DINSTALL_C_EXAMPLES=OFF \
-        && make install \
-        && rm -rf /$VERSION.tar.gz /opencv-$VERSION
+        -DCMAKE_BUILD_TYPE=RELEASE \
+        -DCMAKE_INSTALL_PREFIX=$PREFIX \
+        -DOPENCV_ENABLE_NONFREE=$NONFREE \
+        -DBUILD_opencv_java=OFF \
+        -DWITH_CUDA=$CUDA \
+        -DWITH_CUBLAS=$CUBLAS \
+        -DWITH_CUFFT=$CUFFT \
+        -DENABLE_AVX=$AVX \
+        -DENABLE_AVX2=$AVX2 \
+        -DENABLE_SSE41=$SSE41 \
+        -DENABLE_SSE42=$SSE42 \
+        -DENABLE_SSSE3=$SSSE3 \
+        -DWITH_OPENGL=$OPENGL \
+        -DWITH_GTK=$GTK \
+        -DWITH_GSTREAMER=$GSTREAMER \
+        -DWITH_OPENCL=$OPENCL \
+        -DWITH_OPENCL_SVM=$OPENCL_SVM \
+        -DWITH_TBB=$TBB \
+        -DWITH_JPEG=ON \
+        -DWITH_WEBP=ON \
+        -DWITH_TIFF=ON \
+        -DWITH_PNG=ON \
+        -DWITH_QT=$QT \
+        -DWITH_IPP=$IPP \
+        -DWITH_EIGEN=ON \
+        -DWITH_V4L=ON \
+        -DWITH_INTELPERC=$INTELPERC \
+        -DWITH_FFMPEG=$FFMPEG \
+        -DENABLE_PRECOMPILED_HEADERS=ON \
+        -DPYTHON3_EXECUTABLE=$PYTHON_BIN \
+        -DPYTHON3_LIBRARIES=$PYTHON_LIB \
+        -DPYTHON3_INCLUDE_DIR=$($PYTHON_BIN -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
+        -DPYTHON3_PACKAGES_PATH=$($PYTHON_BIN -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
+        -DBUILD_PERF_TESTS=OFF \
+        -DBUILD_TESTS=OFF \
+        -DBUILD_EXAMPLES=OFF \
+        -DINSTALL_PYTHON_EXAMPLES=OFF \
+        -DINSTALL_C_EXAMPLES=OFF \
+    && make install \
+    && rm -rf /$VERSION.tar.gz /opencv-$VERSION
 
