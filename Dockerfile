@@ -126,6 +126,7 @@ RUN curl --silent --location --location-trusted \
         -DPYTHON3_LIBRARIES=$PYTHON_LIB \
         -DPYTHON3_INCLUDE_DIR=$($PYTHON_BIN -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
         -DPYTHON3_PACKAGES_PATH=$($PYTHON_BIN -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
+        -DBUILD_DOCS=NO \
         -DBUILD_PERF_TESTS=OFF \
         -DBUILD_TESTS=OFF \
         -DBUILD_EXAMPLES=OFF \
