@@ -50,6 +50,8 @@ ARG VERSION=3.2.0
 ARG PYTHON_BIN=/usr/local/bin/python
 ARG PYTHON_LIB=/usr/local/lib/libpython3.so
 
+WORKDIR /
+
 # LAPACKE is the C wrapper for the standard F90 LAPACK library. Honestly, its
 # easier (and more efficient) to do things directly with LAPACK just as long as
 # you store things column-major. LAPACKE ends up calling (in some fashion) the
@@ -76,14 +78,13 @@ RUN apt-get update -q -y && apt-get install -y \
         libopenblas-dev libopenblas-base \
         libatlas-dev libatlas-base-dev \
         liblapacke-dev liblapacke \
+        python-numpy python-scipy \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists
 
-WORKDIR /
-
-RUN pip install --no-binary :all: numpy \
- && pip install --no-binary :all: scipy \
- && rm -rf ~/.cache/pip
+# RUN pip install --no-binary :all: numpy \
+#  && pip install --no-binary :all: scipy \
+#  && rm -rf ~/.cache/pip
 
 RUN curl --silent --location --location-trusted \
         --remote-name https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
