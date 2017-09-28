@@ -1,4 +1,4 @@
-FROM python:3.6-jessie
+FROM python:3.6-stretch
 MAINTAINER Yo-An Lin <yoanlin93@gmail.com>
 
 ENV LC_ALL=C.UTF-8

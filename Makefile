@@ -1,11 +1,15 @@
-i5:
-	docker build --tag yoanlin/opencv-python3:i5 --tag yoanlin/opencv-python3:latest .
-	docker push yoanlin/opencv-python3:latest
-	docker push yoanlin/opencv-python3:i5
+jessie:
+	docker build --tag yoanlin/opencv-python3:$@ \
+				 --file 3.6/$@/Dockerfile .
+	docker push yoanlin/opencv-python3:$@
 
-i5-opencl:
-	docker build --tag yoanlin/opencv-python3:opencl \
-		--build-arg OPENCL=ON .
-	docker push yoanlin/opencv-python3:opencl
+stretch:
+	docker build --tag yoanlin/opencv-python3:$@ \
+				 --file 3.6/$@/Dockerfile .
+	docker push yoanlin/opencv-python3:$@
 
-all: i5 i5-opencl i5-opencl-cuda
+i5: jessie
+	docker tag yoanlin/opencv-python3:$< yoanlin/opencv-python3:i5 
+	docker tag yoanlin/opencv-python3:$< yoanlin/opencv-python3:latest
+
+all: i5 jessie stretch
