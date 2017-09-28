@@ -13,6 +13,7 @@ ARG SSSE3=ON
 ARG TBB=ON
 
 # Include Intel IPP support
+# Intel IPP software building blocks are highly optimized instruction sets (using Intel AVX, AVX2 and SSE).It offers a special subset of functions for image processing and computer vision called the IPP-ICV libraries. More information can be found here. Also here you can find some information about speedup.
 ARG IPP=ON
 
 # Include NVidia Cuda Runtime support
