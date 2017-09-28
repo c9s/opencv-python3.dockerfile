@@ -4,6 +4,33 @@ MAINTAINER Yo-An Lin <yoanlin93@gmail.com>
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
+RUN apt-get update -q -y && apt-get install -y \
+        build-essential \
+        cmake \
+        git \
+        wget \
+        yasm \
+        pkg-config \
+        libswscale-dev \
+        libeigen3-dev \
+        libtbb2 \
+        libtbb-dev \
+        libjpeg-dev \
+        libpng-dev \
+        libtiff-dev \
+        libjasper-dev \
+        libavformat-dev \
+        libpq-dev \
+        libboost-all-dev \
+        libgphoto2-dev libgphoto2-6 \
+        libgstreamer1.0-0 libgstreamer1.0-dev gstreamer1.0-libav gstreamer1.0-plugins-base \
+        libopenblas-dev libopenblas-base \
+        libatlas3-base libatlas-dev \
+        liblapacke-dev liblapacke \
+        liblapack-dev liblapack3 \
+        python-numpy \
+        && apt-get clean
+
 # Intel CPU Options
 ARG AVX=ON
 ARG AVX2=ON
@@ -49,32 +76,6 @@ ARG VERSION=3.2.0
 ARG PYTHON_BIN=/usr/local/bin/python
 ARG PYTHON_LIB=/usr/local/lib/libpython3.so
 
-RUN apt-get update -q -y && apt-get install -y \
-        build-essential \
-        cmake \
-        git \
-        wget \
-        yasm \
-        pkg-config \
-        libswscale-dev \
-        libeigen3-dev \
-        libtbb2 \
-        libtbb-dev \
-        libjpeg-dev \
-        libpng-dev \
-        libtiff-dev \
-        libjasper-dev \
-        libavformat-dev \
-        libpq-dev \
-        libboost-all-dev \
-        libgphoto2-dev libgphoto2-6 \
-        libgstreamer1.0-0 libgstreamer1.0-dev gstreamer1.0-libav gstreamer1.0-plugins-base \
-        libopenblas-dev libopenblas-base \
-        libatlas3-base libatlas-dev \
-        liblapacke-dev liblapacke \
-        liblapack-dev liblapack3 \
-        python-numpy \
-        && apt-get clean
 
 WORKDIR /
 
