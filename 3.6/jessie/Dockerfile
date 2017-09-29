@@ -75,17 +75,15 @@ ARG VERSION=3.2.0
 ARG PYTHON_BIN=/usr/local/bin/python
 ARG PYTHON_LIB=/usr/local/lib/libpython3.so
 
+RUN pip install numpy
+RUN pip install scipy
 
 WORKDIR /
 
 RUN wget -qc https://github.com/opencv/opencv/archive/$VERSION.tar.gz \
-    && tar xf $VERSION.tar.gz -C /
-
-RUN pip install numpy
-RUN pip install scipy
-
-RUN mkdir /opencv-$VERSION/cmake_binary \
-    && cd /opencv-$VERSION/cmake_binary \
+    && tar xf $VERSION.tar.gz -C / \
+    && mkdir /opencv-$VERSION/build \
+    && cd /opencv-$VERSION/build \
     && cmake \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
