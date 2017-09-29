@@ -18,11 +18,10 @@ RUN apt-get update -q -y && apt-get install -y \
         libjpeg-dev \
         libpng-dev \
         libtiff-dev \
-        libjasper-dev \
+        libopenjp2-7-dev \
         libavformat-dev \
         libpq-dev \
         libboost-all-dev \
-        libgphoto2-dev libgphoto2-6 \
         libgstreamer1.0-0 libgstreamer1.0-dev gstreamer1.0-libav gstreamer1.0-plugins-base \
         libopenblas-dev libopenblas-base \
         libatlas3-base libatlas-dev \

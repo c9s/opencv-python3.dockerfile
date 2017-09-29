@@ -1,10 +1,10 @@
 jessie:
-	docker build --build-arg IPP=OFF --tag yoanlin/opencv-python3:$@ \
+	docker build --tag yoanlin/opencv-python3:$@ \
 				 --file 3.6/$@/Dockerfile .
 	docker push yoanlin/opencv-python3:$@
 
 stretch:
-	docker build --build-arg IPP=OFF --tag yoanlin/opencv-python3:$@ \
+	docker build --tag yoanlin/opencv-python3:$@ \
 				 --file 3.6/$@/Dockerfile .
 	docker push yoanlin/opencv-python3:$@
 
